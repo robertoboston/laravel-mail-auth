@@ -10,7 +10,7 @@ use App\Models\Category;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','content','slug', 'category_id'];    
+    protected $fillable = ['title','content','slug', 'category_id','cover_image'];    
 
     public static function generateSlug($title){
         return Str::slug($title,'-');

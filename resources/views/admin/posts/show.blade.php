@@ -11,6 +11,7 @@
                 </div>
             </div>
             <div class="col-12">
+                <img src="{{asset('storage' .$post->coverimage)}}" alt="{{$post->title}}" class="w-50">
                 <p><strong>Slug:</strong>{{$post->slug}}</p>
                 <p><strong>Categoria:</strong>{{$post->category ? $post->category->name : 'Senza categoria'}}</p>
                 <label class="d-block"><strong>Contenuto:</strong></label>
