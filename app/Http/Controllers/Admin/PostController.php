@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Lead;
+use App\Mail\NewContact;
 
 
 class PostController extends Controller
@@ -66,6 +69,16 @@ class PostController extends Controller
         if($request->has('tags')){
             $newPost->tags()->attach($request->tags);
         }
+
+        $new_lead = new Lead();
+        $new_lead->title = $form_data['title'];
+        $new_lead->content = $form_data['content'];
+        $new_lead->slug = $form_data['slug'];
+
+        $new_lead->save();
+
+        Mail::to('info@boolpress.com')->send(new NewContact($new_lead));
+
 
         return redirect()->route('admin.posts.index')->with('message','post creato correttamente');
 
